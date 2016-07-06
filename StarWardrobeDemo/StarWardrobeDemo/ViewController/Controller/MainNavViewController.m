@@ -1,0 +1,87 @@
+//
+//  MainNavViewController.m
+//  StarWardrobeDemo
+//
+//  Created by Mac on 16/7/4.
+//  Copyright © 2016年 xiao. All rights reserved.
+//
+
+#import "MainNavViewController.h"
+
+@interface MainNavViewController ()<UINavigationControllerDelegate>
+@end
+
+@implementation MainNavViewController
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    // Do any additional setup after loading the view.
+    self.delegate = self;
+    
+    self.navigationBarHidden = YES;
+}
+
+
+- (UIBarButtonItem *)barButtonItemWithImage:(NSString *)imageName highImage:(NSString *)highImageName target:(id)target action:(SEL)action{
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    button.bounds = CGRectMake(0, 0, 40, 40);
+    button.imageView.contentMode = UIViewContentModeLeft;
+    button.imageEdgeInsets = UIEdgeInsetsMake(0, -40, 0, 0);
+    button.adjustsImageWhenHighlighted = NO;
+    [button setImage:[UIImage imageNamed:imageName] forState:UIControlStateNormal];
+    [button setImage:[UIImage imageNamed:highImageName] forState:UIControlStateHighlighted];
+    [button addTarget:target action:action forControlEvents:UIControlEventTouchUpInside];
+    
+    return  [[UIBarButtonItem alloc] initWithCustomView:button];
+
+}
+
+- (void)pushViewController:(UIViewController *)viewController animated:(BOOL)animated{
+    if (self.viewControllers.count >0) {
+        viewController.hidesBottomBarWhenPushed = YES;
+        UIBarButtonItem *popToPreButton = [self barButtonItemWithImage:@"" highImage:nil target:self action:@selector(popToPre)];
+        
+        viewController.navigationItem.leftBarButtonItem = popToPreButton;
+    }
+    [super pushViewController:viewController animated:animated];
+    
+    
+}
+
+- (void)popToPre
+{
+    [self popViewControllerAnimated:YES];
+}
+
+
+
+- (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated{
+
+    for (UIView *tabBar  in self.tabBarController.tabBar.subviews) {
+        if ([tabBar isKindOfClass:NSClassFromString(@"UITabBarButton")]) {
+            [tabBar removeFromSuperview];
+        }
+    }
+    
+
+}
+
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+
+
+/*
+#pragma mark - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+}
+*/
+
+@end

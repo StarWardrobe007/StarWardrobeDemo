@@ -1,0 +1,17 @@
+source 'https://github.com/CocoaPods/Specs.git'
+platform :ios, "9.0"
+
+
+target :'StarWardrobeDemo' do
+ pod 'AFNetworking'
+ pod 'ASIHTTPRequest'
+ pod 'Masonry'
+ pod 'Reachability'
+ pod 'SDAutoLayout'
+ pod 'SDWebImage'
+ pod 'YTKNetwork'
+ pod 'AFDownloadRequestOperation'
+ pod 'CocoaLumberjack'
+ pod 'GCJSONKit'
+ pod 'JSONModel'
+end
